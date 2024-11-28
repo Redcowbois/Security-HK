@@ -1,0 +1,8 @@
+db-data/
+__pycache__
+sessions/
+test*
+.venv/
+TODO*
+qr_auth.png
+

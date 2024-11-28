@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login 2FA Auth</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- External CSS -->
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <h2 class="text-center">Enter 2FA Code</h2>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <div>Enter 2FA Timed Code here</div>
+        <form action="/login_auth" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" id="totp" name="totp" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary" name="submit">Submit TOPT</button>
+            </div>
+        </form>
+        <br>
+        <div>Enter Recovery Code here if you lost your 2FA</div>
+        <form action="/login_auth" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" id="recovery" name="recovery" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary" name="submit">Submit Recover Code</button>
+            </div>
+        </form> 
+    </div>
+</body>
+</html>
